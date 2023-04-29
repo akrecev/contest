@@ -18,7 +18,9 @@ public class Main {
 
         for (int i = 1; i <= count; i++) {
             numbers[i] = scanner.nextInt();
-            sorted.add(numbers[i]);
+            if (numbers[i] <= count) {
+                sorted.add(numbers[i]);
+            }
         }
 
         if (sorted.size() == count - 1) {
@@ -32,15 +34,24 @@ public class Main {
                         indexB = j;
                     }
                 }
+                if (numbers[i] > count) {
+                    indexA = i;
+                }
             }
 
             int firstNumber = 0;
             int k = 1;
+            int temp = 0;
+            int flag = 0;
             if (indexA != lostNumber) {
+                temp = numbers[indexA];
                 numbers[indexA] = lostNumber;
                 for (int i = 1; i <= count; i++) {
                     k = numbers[k];
-                    if (i == count) {
+                    if (i < count && k == 1) {
+                        flag = 1;
+                    }
+                    if (i == count && flag == 0) {
                         firstNumber = k;
                     }
                 }
@@ -50,6 +61,9 @@ public class Main {
                 System.out.println(indexA + " " + lostNumber);
             } else {
                 if (indexB != lostNumber) {
+                    if (temp > 0) {
+                        numbers[indexA] = temp;
+                    }
                     numbers[indexB] = lostNumber;
                     k = 1;
                     firstNumber = 0;
